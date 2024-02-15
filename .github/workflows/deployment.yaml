@@ -34,4 +34,36 @@ jobs:
         with:
           push: true
           tags: prashanthtpk7/app1:latest
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
  
+      - name: Try the cluster !
+        run: kubectl get pods -A
+ 
+      - name: Deploy to minikube
+        run:
+          kubectl apply -f deployment.yml
+ 
+      - name: Sleep for 30 seconds
+        run: sleep 30s
+        shell: bash
+      
+      - name: Expose to service
+        run:
+          kubectl apply -f service.yml
+ 
+      - name: Sleep for 30 seconds
+        run: sleep 30s
+        shell: bash
+ 
+      - name: Test service URLs
+        run: |
+          kubectl get services
+          kubectl get deployments
+          kubectl get pods
+ 
+          url=$(minikube service my-appservice --url)
+ 
+          curl $url
+          curl $url/ping
+          curl $url/healthz
