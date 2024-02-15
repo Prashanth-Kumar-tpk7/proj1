@@ -33,39 +33,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mayurpawar3099/ping-app-github:latest
+          tags: prashanthtpk7/app1:latest
  
-      - name: Start minikube
-        uses: medyagh/setup-minikube@master
-      - name: Try the cluster !
-        run: kubectl get pods -A
-      - name: Deploy to minikube
-        run:
-          kubectl apply -f deployment.yaml
- 
-      - name: Sleep for 30 seconds
-        run: sleep 30s
-        shell: bash
-      - name: Test service URLs
-        run: |
-          kubectl get services
-          kubectl get deployments
-          kubectl get pods
- 
-          # minikube service ping-app-service --url
- 
-          url=$(minikube service ping-app-service --url)
- 
-          # curl $(minikube service ping-app-service --url)
-          # curl $(minikube service ping-app-service --url)/ping
-          # curl $(minikube service ping-app-service --url)/healthz
- 
-          curl $url
-          curl $url/ping
-          curl $url/healthz
-          # minikube service list
-          # minikube service example --url
-          # echo "------------------opening the service------------------"
-          # curl $(minikube service example --url)     
-has context menu
-Compose
