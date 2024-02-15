@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynewapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mypodsnew
+  template:
+    metadata:
+      labels:
+        app: mypodsnew
+    spec:
+      containers:
+      - name: mypodsnew
+        image: prashanthtpk7/app1
+        ports:
+        - containerPort: 5000
